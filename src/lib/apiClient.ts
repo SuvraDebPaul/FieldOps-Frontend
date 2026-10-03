@@ -5,7 +5,7 @@ const isServer = typeof window === "undefined";
 
 const BASE_URL = isServer
   ? `${process.env.BACKEND_URL ?? "http://localhost:5000"}/api/v1`
-  : "api/v1";
+  : "/api/v1";
 
 const baseClient = ofetch.create({
   baseURL: BASE_URL,
