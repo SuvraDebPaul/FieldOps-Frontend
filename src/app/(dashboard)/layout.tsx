@@ -1,5 +1,9 @@
-import React from "react";
+import type { ReactNode } from "react";
 
-export default function DashboardLayout() {
-  return <div>DashboardLayout</div>;
+export default function DashboardGroupLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  return <>{children}</>;
 }

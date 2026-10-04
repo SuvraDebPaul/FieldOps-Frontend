@@ -51,11 +51,11 @@ export function useLoginWithRedirect(redirectTo?: string | null) {
       },
       onError: (error) => toast.error(getErrorMessage(error)),
     });
-    return {
-      login,
-      isPending: mutation.isPending,
-      pendingEmail: mutation.isPending ? mutation.variables?.email : null,
-    };
+  };
+  return {
+    login,
+    isPending: mutation.isPending,
+    pendingEmail: mutation.isPending ? mutation.variables?.email : undefined,
   };
 }
 
