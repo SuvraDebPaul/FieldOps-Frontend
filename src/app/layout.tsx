@@ -23,12 +23,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.SITE_URL ?? "http://localhost:3000"),
   title: {
     default: "FieldOps: Field Service Management",
     template: "%s | FieldOps",
   },
   description:
-    "Request, dispatch, track and pay for on-site calibration, repair and maintenance of industrial instruments.",
+    "Request, dispatch, track and pay for on-site industrial maintenance and repair.",
+  openGraph: { type: "website", siteName: "FieldOps", locale: "en_US" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
