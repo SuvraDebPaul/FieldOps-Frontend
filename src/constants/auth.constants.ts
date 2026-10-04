@@ -33,3 +33,9 @@ export const DEMO_ACCOUNTS: {
     email: "tech.rahim@gmail.com",
   },
 ];
+
+export const ROLE_LABEL: Record<Role, string> = {
+  ADMIN: "Admin",
+  CUSTOMER: "Customer",
+  TECHNICIAN: "Technician",
+};

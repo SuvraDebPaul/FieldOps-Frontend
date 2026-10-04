@@ -1,2 +1,2 @@
-// src/utils/index.ts
 export * from "./error.utils";
+export * from "./route.utils";
