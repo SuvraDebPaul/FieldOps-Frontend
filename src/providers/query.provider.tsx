@@ -1,15 +1,26 @@
 "use client";
 
+import { getErrorMessage } from "@/utils/error.utils";
 import {
   environmentManager,
+  QueryCache,
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { FetchError } from "ofetch";
 import type { ReactNode } from "react";
+import { toast } from "sonner";
 
 function makeQueryClient() {
   return new QueryClient({
+    queryCache: new QueryCache({
+      onError: (error, query) => {
+        const message = query.meta?.errorMessage;
+        if (message) {
+          toast.error(message, { description: getErrorMessage(error) });
+        }
+      },
+    }),
     defaultOptions: {
       queries: {
         staleTime: 60 * 1000,
