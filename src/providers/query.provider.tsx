@@ -3,6 +3,7 @@
 import { getErrorMessage } from "@/utils/error.utils";
 import {
   environmentManager,
+  MutationCache,
   QueryCache,
   QueryClient,
   QueryClientProvider,
@@ -19,6 +20,13 @@ function makeQueryClient() {
         if (message) {
           toast.error(message, { description: getErrorMessage(error) });
         }
+      },
+    }),
+    mutationCache: new MutationCache({
+      onError: (error, _variables, _onMutateResult, mutation) => {
+        const message = mutation.meta?.errorMessage;
+        if (message)
+          toast.error(message, { description: getErrorMessage(error) });
       },
     }),
     defaultOptions: {

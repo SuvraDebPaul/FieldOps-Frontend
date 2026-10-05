@@ -16,3 +16,42 @@ export function CardGridSkeleton({ count = 6 }: { count?: number }) {
     </div>
   );
 }
+
+export function TableSkeleton({
+  rows = 5,
+  columns = 4,
+}: {
+  rows?: number;
+  columns?: number;
+}) {
+  return (
+    <div className="overflow-hidden rounded-xl border">
+      <div className="border-b bg-muted/40 px-4 py-3">
+        <Skeleton className="h-4 w-1/3" />
+      </div>
+      {Array.from({ length: rows }, (_, r) => (
+        // biome-ignore lint/suspicious/noArrayIndexKey: static placeholder list
+        <div key={r} className="flex gap-4 border-b px-4 py-4 last:border-0">
+          {Array.from({ length: columns }, (_, c) => (
+            // biome-ignore lint/suspicious/noArrayIndexKey: static placeholder list
+            <Skeleton key={c} className="h-4 flex-1" />
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/** For dashboard loading.tsx files: page title + table. */
+export function DashboardPageSkeleton() {
+  return (
+    <div className="space-y-6">
+      <div className="space-y-2">
+        <Skeleton className="h-8 w-56" />
+        <Skeleton className="h-4 w-80 max-w-full" />
+      </div>
+      <Skeleton className="h-9 w-full max-w-sm" />
+      <TableSkeleton />
+    </div>
+  );
+}
