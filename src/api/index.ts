@@ -3,3 +3,4 @@ export * from "./auth.api";
 export * from "./catalog.api";
 export * from "./technician.api";
 export * from "./site.api";
+export * from "./request.api";
