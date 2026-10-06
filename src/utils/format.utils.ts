@@ -23,3 +23,15 @@ export function formatDate(iso: string) {
 export function formatDateTime(iso: string) {
   return format(new Date(iso), "d MM yyyy, h:mm a");
 }
+
+export function formatTime(iso: string) {
+  return format(new Date(iso), "h:mm a");
+}
+
+export function toDateTimeLocal(iso: string | null) {
+  return iso ? format(new Date(iso), "yyyy-MM-dd'T'HH:mm") : "";
+}
+
+export function fromDateTimeLocal(value: string) {
+  return value ? new Date(value).toISOString() : undefined;
+}
