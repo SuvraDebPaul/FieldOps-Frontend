@@ -1,5 +1,13 @@
 "use client";
 
-export default function ErrorPage() {
-  return <div>ErrorPage</div>;
+import RouteError, {
+  type RouteErrorProps,
+} from "@/components/shared/route-error";
+
+export default function RootError(props: RouteErrorProps) {
+  return (
+    <main className="flex min-h-svh flex-col">
+      <RouteError {...props} />
+    </main>
+  );
 }
