@@ -19,7 +19,7 @@ import {
   REQUEST_STATUS_META,
   WORK_ORDER_STATUS_META,
 } from "@/constants/status.constants";
-import { useQueryParams, useRequest } from "@/hooks";
+import { useQueryParams, useRequest, useSkills } from "@/hooks";
 import type { ServiceRequestDetail } from "@/types";
 import { formatDateTime, formatTime } from "@/utils";
 
@@ -81,6 +81,9 @@ function RequestDetails({
   const workOrdersPath = pathname.startsWith("/admin")
     ? "/admin/work-orders"
     : "/dashboard/work-orders";
+  const { data: skills } = useSkills();
+  const requiredSkill =
+    skills?.find((s) => s.id === category.requiredSkillId)?.name ?? "—";
 
   return (
     <>
@@ -139,9 +142,7 @@ function RequestDetails({
 
           <DetailItem label="Service">{category.name}</DetailItem>
 
-          <DetailItem label="Required skill">
-            {category.requiredSkill.name}
-          </DetailItem>
+          <DetailItem label="Required skill">{requiredSkill}</DetailItem>
 
           <DetailItem label="Site">
             {site.label}
@@ -176,11 +177,7 @@ function RequestDetails({
         </section>
       </div>
 
-      {actions && (
-        <div className="flex flex-wrap items-center gap-2 border-t px-4 py-3">
-          {actions}
-        </div>
-      )}
+      {actions}
     </>
   );
 }

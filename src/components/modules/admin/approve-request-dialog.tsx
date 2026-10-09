@@ -19,7 +19,7 @@ import {
 import { FieldGroup } from "@/components/ui/field";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Spinner } from "@/components/ui/spinner";
-import { useApproveRequest, useTechnicians } from "@/hooks";
+import { useApproveRequest, useTechnicians, useSkills } from "@/hooks";
 import type { ServiceRequestDetail } from "@/types";
 import {
   formatCurrency,
@@ -29,7 +29,6 @@ import {
 } from "@/utils";
 import { type ApproveRequestValues, approveRequestSchema } from "@/validation";
 
-/** The customer's preferred time if it's still ahead, otherwise tomorrow at 9:00. */
 function defaultStart(preferredAt: string | null) {
   if (preferredAt && isFuture(new Date(preferredAt)))
     return toDateTimeLocal(preferredAt);
@@ -48,6 +47,9 @@ export default function ApproveRequestDialog({
 }: {
   request: ServiceRequestDetail;
 }) {
+  const { data: skills } = useSkills();
+  const requiredSkill =
+    skills?.find((s) => s.id === request.category.requiredSkillId)?.name ?? "—";
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -59,9 +61,8 @@ export default function ApproveRequestDialog({
         <DialogHeader>
           <DialogTitle>Approve {request.code}</DialogTitle>
           <DialogDescription>
-            Assign a technician certified in{" "}
-            <strong>{request.category.requiredSkill.name}</strong> and book a
-            time slot.
+            Assign a technician certified in <strong>{requiredSkill}</strong>{" "}
+            and book a time slot.
           </DialogDescription>
         </DialogHeader>
         <ApproveForm request={request} />
@@ -71,9 +72,13 @@ export default function ApproveRequestDialog({
 }
 
 function ApproveForm({ request }: { request: ServiceRequestDetail }) {
+  const { data: skills } = useSkills();
+  const requiredSkill =
+    skills?.find((s) => s.id === request.category.requiredSkillId)?.name ?? "—";
+
   const approve = useApproveRequest();
   const { data, isPending } = useTechnicians({
-    skill: request.category.requiredSkill.name,
+    skill: requiredSkill,
     available: "true",
     limit: 50,
   });

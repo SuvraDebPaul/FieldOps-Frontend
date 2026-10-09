@@ -1,5 +1,5 @@
 import type { ListParams } from "./api.type";
-import type { ServiceCategory } from "./catalog.type";
+import type { ServiceCategory, ServiceCategoryBase } from "./catalog.type";
 import type { Priority, RequestStatus } from "./enums.type";
 import type { Site } from "./site.type";
 import type { TechnicianWithUser } from "./technician.type";
@@ -27,7 +27,7 @@ export interface ServiceRequestBase {
 // The shape nested inside work orders, invoices and feedback
 export interface RequestWithRelations extends ServiceRequestBase {
   site: Site;
-  category: ServiceCategory;
+  category: ServiceCategoryBase;
   customer: CustomerProfile & { user: User };
 }
 

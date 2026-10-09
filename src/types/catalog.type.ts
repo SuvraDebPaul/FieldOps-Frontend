@@ -39,3 +39,5 @@ export type UpdateCategoryPayload = Partial<CreateCategoryPayload> & {
 export interface CreateSkillPayload {
   name: string;
 }
+
+export type ServiceCategoryBase = Omit<ServiceCategory, "requiredSkill">;
