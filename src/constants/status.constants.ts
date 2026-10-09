@@ -4,6 +4,7 @@ import type {
   Priority,
   RequestStatus,
   WorkOrderStatus,
+  UserStatus,
 } from "@/types";
 
 export type BadgeTone =
@@ -67,3 +68,8 @@ export const WORK_ORDER_FLOW: WorkOrderStatus[] = [
   "INVOICED",
   "PAID",
 ];
+
+export const USER_STATUS_META: Record<UserStatus, StatusMeta> = {
+  ACTIVE: { label: "Active", tone: "success" },
+  SUSPENDED: { label: "Suspended", tone: "danger" },
+};
