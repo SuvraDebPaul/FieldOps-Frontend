@@ -8,10 +8,13 @@ import {
 } from "@tanstack/react-query";
 import { toast } from "sonner";
 import {
+  approveRequest,
   cancelRequest,
   createRequest,
+  deleteRequest,
   getRequest,
   getRequests,
+  rejectRequest,
   updateRequest,
 } from "@/api";
 import type {
@@ -22,6 +25,7 @@ import type {
   ServiceRequest,
   ServiceRequestDetail,
 } from "@/types";
+import { WORK_ORDER_KEYS } from "./work-order.hook";
 
 export const REQUEST_KEYS = {
   all: ["requests"] as const,
@@ -48,7 +52,7 @@ export function useRequest(requestId: string | null) {
   });
 }
 
-export function useRequestStatusCounts(statuses: RequestStatus[]) {
+export function useRequestStatusCounts(statuses: readonly RequestStatus[]) {
   return useQueries({
     queries: statuses.map((status) => ({
       queryKey: REQUEST_KEYS.list({ status, limit: 1 }),
@@ -132,5 +136,45 @@ export function useCancelRequest() {
       queryClient.invalidateQueries({ queryKey: REQUEST_KEYS.all }),
 
     meta: { errorMessage: "Couldn't cancel the request" },
+  });
+}
+
+export function useApproveRequest() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: approveRequest,
+    // Toast in the hook: approving flips the status, which unmounts the dialog that called it
+    onSuccess: ({ data }) => {
+      toast.success(`Approved: work order ${data.code} created`);
+      return Promise.all([
+        queryClient.invalidateQueries({ queryKey: REQUEST_KEYS.all }),
+        queryClient.invalidateQueries({ queryKey: WORK_ORDER_KEYS.all }),
+      ]);
+    },
+    meta: { errorMessage: "Couldn't approve the request" },
+  });
+}
+
+export function useRejectRequest() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: rejectRequest,
+    onSuccess: ({ data }) => {
+      toast.success(`${data.code} rejected`);
+      return queryClient.invalidateQueries({ queryKey: REQUEST_KEYS.all });
+    },
+    meta: { errorMessage: "Couldn't reject the request" },
+  });
+}
+
+export function useDeleteRequest() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: deleteRequest,
+    onSuccess: () => {
+      toast.success("Request deleted");
+      return queryClient.invalidateQueries({ queryKey: REQUEST_KEYS.all });
+    },
+    meta: { errorMessage: "Couldn't delete the request" },
   });
 }

@@ -24,7 +24,7 @@ export default function RequestsPage() {
         }
       />
       <Suspense fallback={<TableSkeleton columns={6} />}>
-        <RequestList />
+        <RequestList variant="customer" />
       </Suspense>
     </>
   );

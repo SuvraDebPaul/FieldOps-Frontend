@@ -86,7 +86,7 @@ export function useSubmitFeedback() {
   });
 }
 
-export function useWorkOrderStatusCounts(statuses: WorkOrderStatus[]) {
+export function useWorkOrderStatusCounts(statuses: readonly WorkOrderStatus[]) {
   return useQueries({
     queries: statuses.map((status) => ({
       queryKey: WORK_ORDER_KEYS.list({ status, limit: 1 }),

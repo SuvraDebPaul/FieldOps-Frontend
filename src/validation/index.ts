@@ -6,3 +6,4 @@ export * from "./request.validation";
 export * from "./feedback.validation";
 export * from "./profile.validation";
 export * from "./work-order.validation";
+export * from "./admin.validation";

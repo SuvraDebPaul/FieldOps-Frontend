@@ -2,6 +2,7 @@
 
 import { ClipboardList, Eye, Plus, ServerCrash } from "lucide-react";
 import Link from "next/link";
+import AdminRequestActions from "@/components/modules/admin/admin-request-actions";
 import DataTable, {
   type DataTableColumn,
 } from "@/components/shared/data-table";
@@ -19,10 +20,10 @@ import {
 import { useQueryParams, useRequests } from "@/hooks";
 import { PRIORITIES, REQUEST_STATUSES, type ServiceRequest } from "@/types";
 import { formatDate, isOneOf } from "@/utils";
+import CustomerRequestActions from "./customer-request-actions";
 import RequestDetailSheet from "./request-detail-sheet";
 
 const PAGE_SIZE = 10;
-
 const STATUS_OPTIONS = REQUEST_STATUSES.map((s) => ({
   value: s,
   label: REQUEST_STATUS_META[s].label,
@@ -32,7 +33,12 @@ const PRIORITY_OPTIONS = PRIORITIES.map((p) => ({
   label: PRIORITY_META[p].label,
 }));
 
-export default function RequestList() {
+export default function RequestList({
+  variant,
+}: {
+  variant: "customer" | "admin";
+}) {
+  const isAdmin = variant === "admin";
   const { get, setParams } = useQueryParams();
   const searchTerm = get("q");
   const status = get("status");
@@ -53,7 +59,6 @@ export default function RequestList() {
   const updateFilter = (key: string, value: string | null) =>
     setParams({ [key]: value, page: null });
 
-  // Inside the component because the "View" button needs setParams
   const columns: DataTableColumn<ServiceRequest>[] = [
     {
       id: "request",
@@ -65,6 +70,23 @@ export default function RequestList() {
         </div>
       ),
     },
+    // Only admins need to know WHICH customer
+    ...(isAdmin
+      ? [
+          {
+            id: "customer",
+            header: "Customer",
+            cell: (r: ServiceRequest) => (
+              <div>
+                <p>{r.customer.companyName}</p>
+                <p className="text-xs text-muted-foreground">
+                  {r.customer.user.name}
+                </p>
+              </div>
+            ),
+          },
+        ]
+      : []),
     {
       id: "service",
       header: "Service & site",
@@ -102,20 +124,19 @@ export default function RequestList() {
           size="sm"
           onClick={() => setParams({ view: r.id })}
         >
-          <Eye /> View
+          <Eye /> {isAdmin && r.status === "PENDING" ? "Review" : "View"}
         </Button>
       ),
     },
   ];
 
   const renderResults = () => {
-    if (isPending) return <TableSkeleton columns={6} />;
-
+    if (isPending) return <TableSkeleton columns={isAdmin ? 7 : 6} />;
     if (!data) {
       return (
         <EmptyState
           icon={ServerCrash}
-          title="Couldn't load your requests"
+          title="Couldn't load requests"
           action={
             <Button variant="outline" onClick={() => refetch()}>
               Try again
@@ -124,33 +145,40 @@ export default function RequestList() {
         />
       );
     }
-
     if (data.data.length === 0) {
-      return hasFilters ? (
-        <EmptyState
-          title="No requests match these filters"
-          action={
-            <Button variant="outline" onClick={clearFilters}>
-              Clear filters
-            </Button>
-          }
-        />
-      ) : (
+      if (hasFilters) {
+        return (
+          <EmptyState
+            title="No requests match these filters"
+            action={
+              <Button variant="outline" onClick={clearFilters}>
+                Clear filters
+              </Button>
+            }
+          />
+        );
+      }
+      return (
         <EmptyState
           icon={ClipboardList}
           title="No requests yet"
-          description="Raise your first service request in four quick steps."
+          description={
+            isAdmin
+              ? "New customer requests will appear here for review."
+              : "Raise your first service request in four quick steps."
+          }
           action={
-            <Button asChild>
-              <Link href="/dashboard/requests/new">
-                <Plus /> New request
-              </Link>
-            </Button>
+            !isAdmin && (
+              <Button asChild>
+                <Link href="/dashboard/requests/new">
+                  <Plus /> New request
+                </Link>
+              </Button>
+            )
           }
         />
       );
     }
-
     return (
       <div className="space-y-4">
         <DataTable
@@ -199,7 +227,16 @@ export default function RequestList() {
       </div>
 
       {renderResults()}
-      <RequestDetailSheet />
+
+      <RequestDetailSheet
+        renderActions={(request) =>
+          isAdmin ? (
+            <AdminRequestActions request={request} />
+          ) : (
+            <CustomerRequestActions request={request} />
+          )
+        }
+      />
     </div>
   );
 }

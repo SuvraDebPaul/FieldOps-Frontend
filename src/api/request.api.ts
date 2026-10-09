@@ -1,13 +1,16 @@
 import { apiClient } from "@/lib/apiClient";
 import type {
   ApiResponse,
+  ApproveRequestPayload,
   CreateRequestPayload,
   PaginatedResponse,
+  RejectRequestPayload,
   RequestParams,
   ServiceRequest,
   ServiceRequestBase,
   ServiceRequestDetail,
   UpdateRequestPayload,
+  WorkOrderBase,
 } from "@/types";
 
 export function getRequests(params?: RequestParams) {
@@ -40,4 +43,36 @@ export function cancelRequest(requestId: string) {
     `/requests/${requestId}/cancel`,
     { method: "PATCH" },
   );
+}
+
+export function approveRequest({
+  requestId,
+  ...payload
+}: ApproveRequestPayload & { requestId: string }) {
+  return apiClient<ApiResponse<WorkOrderBase>>(
+    `/requests/${requestId}/approve`,
+    {
+      method: "PATCH",
+      body: payload,
+    },
+  );
+}
+
+export function rejectRequest({
+  requestId,
+  ...payload
+}: RejectRequestPayload & { requestId: string }) {
+  return apiClient<ApiResponse<ServiceRequestBase>>(
+    `/requests/${requestId}/reject`,
+    {
+      method: "PATCH",
+      body: payload,
+    },
+  );
+}
+
+export function deleteRequest(requestId: string) {
+  return apiClient<ApiResponse<ServiceRequestBase>>(`/requests/${requestId}`, {
+    method: "DELETE",
+  });
 }

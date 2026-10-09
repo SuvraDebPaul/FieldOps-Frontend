@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import type { ReactNode } from "react";
 import DetailItem from "@/components/shared/detail-item";
 import StatusBadge from "@/components/shared/status-badge";
 import { Button } from "@/components/ui/button";
@@ -8,7 +10,6 @@ import {
   Sheet,
   SheetContent,
   SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
@@ -21,10 +22,14 @@ import {
 import { useQueryParams, useRequest } from "@/hooks";
 import type { ServiceRequestDetail } from "@/types";
 import { formatDateTime, formatTime } from "@/utils";
-import CancelRequestButton from "./cancel-request-button";
-import EditRequestDialog from "./edit-request-dialog";
 
-export default function RequestDetailSheet() {
+interface RequestDetailSheetProps {
+  renderActions?: (request: ServiceRequestDetail) => ReactNode;
+}
+
+export default function RequestDetailSheet({
+  renderActions,
+}: RequestDetailSheetProps) {
   const { get, setParams } = useQueryParams();
   const requestId = get("view") || null;
   const { data: request, isError } = useRequest(requestId);
@@ -38,7 +43,10 @@ export default function RequestDetailSheet() {
     >
       <SheetContent className="w-full overflow-y-auto sm:max-w-lg">
         {request ? (
-          <RequestDetails request={request} />
+          <RequestDetails
+            request={request}
+            actions={renderActions?.(request)}
+          />
         ) : (
           <>
             <SheetHeader>
@@ -61,8 +69,18 @@ export default function RequestDetailSheet() {
   );
 }
 
-function RequestDetails({ request }: { request: ServiceRequestDetail }) {
-  const { site, category, workOrder } = request;
+function RequestDetails({
+  request,
+  actions,
+}: {
+  request: ServiceRequestDetail;
+  actions: ReactNode;
+}) {
+  const { site, category, workOrder, customer } = request;
+  const pathname = usePathname();
+  const workOrdersPath = pathname.startsWith("/admin")
+    ? "/admin/work-orders"
+    : "/dashboard/work-orders";
 
   return (
     <>
@@ -104,7 +122,7 @@ function RequestDetails({ request }: { request: ServiceRequestDetail }) {
               {formatTime(workOrder.scheduledEnd)}
             </p>
             <Button asChild variant="outline" size="sm">
-              <Link href={`/dashboard/work-orders?view=${workOrder.id}`}>
+              <Link href={`${workOrdersPath}?view=${workOrder.id}`}>
                 Track this job
               </Link>
             </Button>
@@ -112,27 +130,39 @@ function RequestDetails({ request }: { request: ServiceRequestDetail }) {
         )}
 
         <dl className="grid gap-4 sm:grid-cols-2">
+          <DetailItem label="Customer">
+            {customer.companyName}
+            <span className="block font-normal text-muted-foreground">
+              {customer.user.name} · {customer.user.email}
+            </span>
+          </DetailItem>
+
           <DetailItem label="Service">{category.name}</DetailItem>
+
           <DetailItem label="Required skill">
             {category.requiredSkill.name}
           </DetailItem>
+
           <DetailItem label="Site">
             {site.label}
             <span className="block font-normal text-muted-foreground">
               {site.address}, {site.city}
             </span>
           </DetailItem>
+
           <DetailItem label="On-site contact">
             {site.contactName}
             <span className="block font-normal text-muted-foreground">
               {site.contactPhone}
             </span>
           </DetailItem>
+
           <DetailItem label="Preferred time">
             {request.preferredAt
               ? formatDateTime(request.preferredAt)
               : "Flexible"}
           </DetailItem>
+
           <DetailItem label="Last updated">
             {formatDateTime(request.updatedAt)}
           </DetailItem>
@@ -146,11 +176,10 @@ function RequestDetails({ request }: { request: ServiceRequestDetail }) {
         </section>
       </div>
 
-      {request.status === "PENDING" && (
-        <SheetFooter className="flex-row gap-2 border-t">
-          <EditRequestDialog request={request} />
-          <CancelRequestButton request={request} />
-        </SheetFooter>
+      {actions && (
+        <div className="flex flex-wrap items-center gap-2 border-t px-4 py-3">
+          {actions}
+        </div>
       )}
     </>
   );
