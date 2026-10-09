@@ -10,3 +10,4 @@ export * from "./invoice.hook";
 export * from "./payment.hook";
 export * from "./work-order.hook";
 export * from "./user.hook";
+export * from "./feedback.hook";

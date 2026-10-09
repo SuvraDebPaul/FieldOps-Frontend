@@ -5,3 +5,4 @@ export * from "./site.validation";
 export * from "./request.validation";
 export * from "./feedback.validation";
 export * from "./profile.validation";
+export * from "./work-order.validation";
