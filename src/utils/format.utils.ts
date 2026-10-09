@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, addMinutes } from "date-fns";
 
 const currencyFormatter = new Intl.NumberFormat("en-us", {
   style: "currency",
@@ -39,4 +39,10 @@ export function fromDateTimeLocal(value: string) {
 export function formatFileSize(bytes: number) {
   if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`;
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+export function addMinutesToLocal(local: string, minutes: number) {
+  return local
+    ? toDateTimeLocal(addMinutes(new Date(local), minutes).toISOString())
+    : "";
 }

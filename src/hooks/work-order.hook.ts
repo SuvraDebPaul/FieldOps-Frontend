@@ -15,6 +15,8 @@ import {
   submitFeedback,
   addPartUsage,
   changeWorkOrderStatus,
+  generateInvoice,
+  rescheduleWorkOrder,
 } from "@/api";
 import type {
   WorkOrderParams,
@@ -25,6 +27,8 @@ import type {
   WorkOrderStatus,
 } from "@/types";
 import { WORK_ORDER_STATUS_META } from "@/constants/status.constants";
+import { INVOICE_KEYS } from "./invoice.hook";
+import { formatCurrency, formatDate } from "@/utils/format.utils";
 
 export const WORK_ORDER_KEYS = {
   all: ["work-orders"] as const,
@@ -169,5 +173,32 @@ export function useAddPartUsage() {
         queryKey: WORK_ORDER_KEYS.detail(workOrderId),
       }),
     meta: { errorMessage: "Couldn't log the part" },
+  });
+}
+
+export function useRescheduleWorkOrder() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: rescheduleWorkOrder,
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: WORK_ORDER_KEYS.all }),
+    meta: { errorMessage: "Couldn't reschedule the job" },
+  });
+}
+
+export function useGenerateInvoice() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: generateInvoice,
+    onSuccess: ({ data }) => {
+      toast.success(`Invoice ${data.invoiceNo} issued`, {
+        description: `${formatCurrency(data.totalAmount)} due ${formatDate(data.dueDate)}`,
+      });
+      return Promise.all([
+        queryClient.invalidateQueries({ queryKey: WORK_ORDER_KEYS.all }),
+        queryClient.invalidateQueries({ queryKey: INVOICE_KEYS.all }),
+      ]);
+    },
+    meta: { errorMessage: "Couldn't generate the invoice" },
   });
 }

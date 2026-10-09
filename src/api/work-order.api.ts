@@ -12,6 +12,7 @@ import type {
   ChangeStatusPayload,
   PartUsage,
   WorkOrderBase,
+  ReschedulePayload,
 } from "@/types";
 
 export function getWorkOrders(params?: WorkOrderParams) {
@@ -62,6 +63,19 @@ export function addPartUsage({
     `/work-orders/${workOrderId}/parts`,
     {
       method: "POST",
+      body: payload,
+    },
+  );
+}
+
+export function rescheduleWorkOrder({
+  workOrderId,
+  ...payload
+}: ReschedulePayload & { workOrderId: string }) {
+  return apiClient<ApiResponse<WorkOrderBase>>(
+    `/work-orders/${workOrderId}/reschedule`,
+    {
+      method: "PATCH",
       body: payload,
     },
   );
