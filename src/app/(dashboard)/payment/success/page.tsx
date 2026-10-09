@@ -1,5 +1,19 @@
-import React from "react";
+import type { Metadata } from "next";
+import { Suspense } from "react";
+import PaymentSuccess from "@/components/modules/payments/payment-success";
+import { Skeleton } from "@/components/ui/skeleton";
+
+export const metadata: Metadata = {
+  title: "Payment status",
+  robots: { index: false }, // a private, per-transaction page: keep it out of search engines
+};
 
 export default function PaymentSuccessPage() {
-  return <div>PaymentSuccessPage</div>;
+  return (
+    <Suspense
+      fallback={<Skeleton className="h-80 w-full max-w-md rounded-xl" />}
+    >
+      <PaymentSuccess />
+    </Suspense>
+  );
 }

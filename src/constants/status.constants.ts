@@ -57,3 +57,13 @@ export const PRIORITY_META: Record<Priority, StatusMeta> = {
   HIGH: { label: "High", tone: "warning" },
   CRITICAL: { label: "Critical", tone: "danger" },
 };
+
+export const WORK_ORDER_FLOW: WorkOrderStatus[] = [
+  "ASSIGNED",
+  "SCHEDULED",
+  "EN_ROUTE",
+  "IN_PROGRESS",
+  "COMPLETED",
+  "INVOICED",
+  "PAID",
+];

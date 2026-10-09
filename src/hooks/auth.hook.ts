@@ -1,4 +1,10 @@
-import { getMe, userLogin, userLogout, userRegister } from "@/api";
+import {
+  changePassword,
+  getMe,
+  userLogin,
+  userLogout,
+  userRegister,
+} from "@/api";
 import { ROLE_HOME } from "@/constants/auth.constants";
 import { useRequestWizardStore } from "@/stores";
 import { LoginPayload } from "@/types";
@@ -9,6 +15,12 @@ import { useEffect } from "react";
 import { toast } from "sonner";
 
 export const ME_QUERY_KEY = ["me"] as const;
+
+function endClientSession() {
+  useRequestWizardStore.getState().reset();
+  useRequestWizardStore.persist.clearStorage();
+  window.location.assign("/login");
+}
 
 export function useGetMe() {
   return useQuery({
@@ -29,13 +41,10 @@ export function useRegister() {
 export function useLogout() {
   return useMutation({
     mutationFn: userLogout,
-    onSettled: () => {
-      useRequestWizardStore.getState().reset();
-      useRequestWizardStore.persist.clearStorage();
-      window.location.assign("/login");
-    },
+    onSettled: endClientSession,
   });
 }
+
 export function useLoginWithRedirect(redirectTo?: string | null) {
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -67,4 +76,17 @@ export function useRequireAuth() {
     if (isError) logout();
   }, [isError, logout]);
   return { user: data?.data, isLoading: isPending || isError };
+}
+
+export function useChangePassword() {
+  return useMutation({
+    mutationFn: changePassword,
+    onSuccess: () => {
+      toast.success("Password changed", {
+        description: "Please log in again with your new password.",
+      });
+      setTimeout(endClientSession, 1500);
+    },
+    meta: { errorMessage: "Couldn't change your password" },
+  });
 }

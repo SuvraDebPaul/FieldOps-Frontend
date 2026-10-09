@@ -35,3 +35,8 @@ export function toDateTimeLocal(iso: string | null) {
 export function fromDateTimeLocal(value: string) {
   return value ? new Date(value).toISOString() : undefined;
 }
+
+export function formatFileSize(bytes: number) {
+  if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
