@@ -26,7 +26,12 @@ const STATUS_OPTIONS = INVOICE_STATUSES.map((s) => ({
   label: INVOICE_STATUS_META[s].label,
 }));
 
-export default function InvoiceList() {
+export default function InvoiceList({
+  variant,
+}: {
+  variant: "customer" | "admin";
+}) {
+  const isAdmin = variant === "admin";
   const { get, setParams } = useQueryParams();
   const searchTerm = get("q");
   const status = get("status");
@@ -52,6 +57,15 @@ export default function InvoiceList() {
         </div>
       ),
     },
+    ...(isAdmin
+      ? [
+          {
+            id: "customer",
+            header: "Customer",
+            cell: (inv: Invoice) => inv.workOrder.request.customer.companyName,
+          },
+        ]
+      : []),
     {
       id: "job",
       header: "Job",
@@ -100,7 +114,7 @@ export default function InvoiceList() {
       className: "text-right",
       cell: (inv) => (
         <div className="flex justify-end gap-2">
-          {inv.status === "DUE" && (
+          {!isAdmin && inv.status === "DUE" && (
             <PayInvoiceButton
               invoiceId={inv.id}
               amount={inv.totalAmount}
@@ -182,7 +196,7 @@ export default function InvoiceList() {
         />
       </div>
       {renderResults()}
-      <InvoiceDetailSheet canPay />
+      <InvoiceDetailSheet canPay={!isAdmin} />
     </div>
   );
 }

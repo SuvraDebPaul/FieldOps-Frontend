@@ -5,7 +5,11 @@ import StatCard from "@/components/shared/stat-card";
 import { useInvoices } from "@/hooks";
 import { formatCurrency } from "@/utils";
 
-export default function PaymentSummary() {
+export default function PaymentSummary({
+  basePath = "/dashboard/payments",
+}: {
+  basePath?: string;
+}) {
   const due = useInvoices({ status: "DUE", limit: 100 });
   const paid = useInvoices({ status: "PAID", limit: 1 });
 
@@ -22,14 +26,14 @@ export default function PaymentSummary() {
         hint={`${due.data?.meta.total ?? 0} invoice(s) due`}
         icon={Wallet}
         isLoading={due.isPending}
-        href="/dashboard/payments?status=DUE"
+        href={`${basePath}?status=DUE`}
       />
       <StatCard
         label="Paid invoices"
         value={paid.data?.meta.total ?? 0}
         icon={CheckCircle2}
         isLoading={paid.isPending}
-        href="/dashboard/payments?status=PAID"
+        href={`${basePath}?status=PAID`}
       />
     </div>
   );
