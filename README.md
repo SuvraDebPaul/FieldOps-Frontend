@@ -33,14 +33,14 @@ This repository contains the **frontend**. The REST API lives in the
 
 ## Live links
 
-| Resource              | Link                                                                             |
-| --------------------- | -------------------------------------------------------------------------------- |
-| **Live frontend**     | https://&lt;frontend&gt;.vercel.app                                                    |
-| **Live API**          | https://&lt;backend&gt;.vercel.app/api/v1                                              |
-| **Frontend repo**     | https://github.com/SuvraDebPaul/FieldOps-Frontend                                |
-| **Backend repo**      | https://github.com/SuvraDebPaul/FieldOps-Backend                                 |
-| **API documentation** | Postman collection in the backend repository (`docs/FieldOps.postman_collection.json`) |
-| **Demo video**        | &lt;link&gt;                                                                           |
+| Resource              | Link                                                                                         |
+| --------------------- | -------------------------------------------------------------------------------------------- |
+| **Live frontend**     | [fieldops-frontend-gamma.vercel.app](https://fieldops-frontend-gamma.vercel.app)             |
+| **Live API**          | [fieldops-backend.vercel.app/api/v1](https://fieldops-backend.vercel.app/api/v1/categories)  |
+| **Frontend repo**     | [SuvraDebPaul/FieldOps-Frontend](https://github.com/SuvraDebPaul/FieldOps-Frontend)          |
+| **Backend repo**      | [SuvraDebPaul/FieldOps-Backend](https://github.com/SuvraDebPaul/FieldOps-Backend)            |
+| **API documentation** | [Postman documentation](https://documenter.getpostman.com/view/48414449/2sBYAxPUd2)          |
+| **Demo video**        | _To be added_                                                                                |
 
 ---
 
@@ -407,7 +407,7 @@ build fetches the catalog from the backend:
 2. **Frontend** — import this repository and set `BACKEND_URL`, `JWT_ACCESS_SECRET` and `SITE_URL`.
 3. **Backend** — set `FRONTEND_URL` to the frontend's URL (Stripe redirects there) and redeploy.
 4. **Stripe** — add a webhook endpoint pointing directly at
-   `https://<backend>.vercel.app/api/v1/payments/webhook` for the three `checkout.session.*` events
+   `https://fieldops-backend.vercel.app/api/v1/payments/webhook` for the three `checkout.session.*` events
    (snapshot payload), set its signing secret as the backend's `STRIPE_WEBHOOK_SECRET`, and redeploy.
 
 ---
