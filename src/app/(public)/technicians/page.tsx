@@ -19,7 +19,6 @@ export default function TechniciansPage() {
         title="Field technicians"
         description="Every technician is matched to jobs by skill, availability and daily workload."
       />
-      {/* useSearchParams inside → must be wrapped in Suspense for the static build */}
       <Suspense fallback={<CardGridSkeleton count={9} />}>
         <TechnicianDirectory />
       </Suspense>

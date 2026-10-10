@@ -30,7 +30,6 @@ export default function MobileNav() {
       </SheetTrigger>
       <SheetContent side="left" className="w-72">
         <SheetHeader>
-          {/* Radix requires a title for screen readers */}
           <SheetTitle asChild>
             <div>
               <Logo />

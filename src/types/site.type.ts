@@ -12,12 +12,12 @@ export interface Site {
   createdAt: string;
   updatedAt: string;
   deletedAt: string | null;
-  customer?: Pick<CustomerProfile, "id" | "companyName">; // only on GET /sites
+  customer?: Pick<CustomerProfile, "id" | "companyName">;
 }
 
 export interface SiteParams extends ListParams {
   city?: string;
-  customerId?: string; // admin only
+  customerId?: string;
 }
 
 export interface SitePayload {

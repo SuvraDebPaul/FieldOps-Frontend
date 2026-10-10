@@ -18,8 +18,8 @@ import { formatCurrency, formatDate, groupByMonth } from "@/utils";
 
 export default function EarningsOverview() {
   const { data: me } = useGetMe();
-  const invoices = useInvoices({ limit: 100 }); // the backend returns only this technician's invoices
-  const feedbacks = useFeedbacks({ limit: 20 }); // …and only the ratings they received
+  const invoices = useInvoices({ limit: 100 });
+  const feedbacks = useFeedbacks({ limit: 20 });
 
   const rows = invoices.data?.data ?? [];
   const totalBilled = rows.reduce(

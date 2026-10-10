@@ -55,7 +55,7 @@ export default function StepService() {
       </form.Field>
       <WizardActions
         onBack={() => {
-          updateDraft(form.state.values); // keep the choice even when going back
+          updateDraft(form.state.values);
           prevStep();
         }}
       />

@@ -53,7 +53,6 @@ export default function StepSite() {
 
   return (
     <div className="space-y-4">
-      {/* Kept OUTSIDE the <form> on purpose (see the note below) */}
       <div className="flex justify-end">
         <SiteFormDialog
           trigger={

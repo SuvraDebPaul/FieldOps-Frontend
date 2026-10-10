@@ -10,7 +10,6 @@ export default function GlobalError({
   retry: () => void;
 }) {
   return (
-    // It REPLACES the root layout, so it must render its own <html>, <body> and styles
     <html lang="en">
       <body className="flex min-h-svh items-center justify-center bg-background p-6 font-sans text-foreground antialiased">
         <title>Something went wrong | FieldOps</title>

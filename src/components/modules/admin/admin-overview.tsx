@@ -38,7 +38,6 @@ const ACTIVE_STATUSES: WorkOrderStatus[] = [
 ];
 
 export default function AdminOverview() {
-  // Oldest first: the requests that have waited longest come first
   const pending = useRequests({
     status: "PENDING",
     limit: 5,

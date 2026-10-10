@@ -29,7 +29,6 @@ export const detailsStepSchema = z.object({
     ),
 });
 
-// The whole draft, checked once more on the Review step before submitting
 export const createRequestSchema = z.object({
   ...siteStepSchema.shape,
   ...serviceStepSchema.shape,

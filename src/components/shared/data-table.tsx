@@ -20,7 +20,7 @@ interface DataTableProps<T> {
   columns: DataTableColumn<T>[];
   rows: T[];
   getRowKey: (row: T) => string;
-  isUpdating?: boolean; // true while keepPreviousData shows old rows
+  isUpdating?: boolean;
 }
 
 export default function DataTable<T>({

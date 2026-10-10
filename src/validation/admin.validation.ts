@@ -12,7 +12,6 @@ export const approveRequestSchema = z
       ),
     scheduledEnd: z.string().min(1, "Choose an end time"),
   })
-  // Mirrors the backend's assertValidWindow ("scheduledEnd Must Be After scheduledStart")
   .refine(
     (d) =>
       !d.scheduledStart ||

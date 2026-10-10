@@ -125,7 +125,6 @@ function PartForm({
           </form.Field>
         </div>
 
-        {/* Only this line re-renders as you type quantity or price */}
         <form.Subscribe
           selector={(s) =>
             Number(s.values.quantity) * Number(s.values.unitPrice)

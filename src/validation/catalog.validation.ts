@@ -1,6 +1,5 @@
 import { z } from "zod";
 
-// Inputs give strings, so validate the text and convert to numbers on submit (as in partSchema)
 export const categorySchema = z.object({
   name: z
     .string()

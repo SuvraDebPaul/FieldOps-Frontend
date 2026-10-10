@@ -2,9 +2,7 @@ import { create } from "zustand";
 import { createJSONStorage, devtools, persist } from "zustand/middleware";
 
 interface UIState {
-  // state
   sidebarOpen: boolean;
-  // actions
   setSidebarOpen: (open: boolean) => void;
   toggleSidebar: () => void;
 }
@@ -26,10 +24,10 @@ export const useUIStore = create<UIState>()(
           ),
       }),
       {
-        name: "fieldops-ui", // the localStorage key
+        name: "fieldops-ui",
         storage: createJSONStorage(() => localStorage),
-        partialize: (state) => ({ sidebarOpen: state.sidebarOpen }), // save data, never functions
-        skipHydration: true, // we load it manually after mount (explained in 3.5)
+        partialize: (state) => ({ sidebarOpen: state.sidebarOpen }),
+        skipHydration: true,
       },
     ),
     { name: "UIStore", enabled: process.env.NODE_ENV === "development" },

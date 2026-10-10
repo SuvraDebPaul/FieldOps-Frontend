@@ -4,7 +4,6 @@ export function CardGridSkeleton({ count = 6 }: { count?: number }) {
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {Array.from({ length: count }, (_, i) => (
-        // biome-ignore lint/suspicious/noArrayIndexKey: static placeholder list
         <div key={i} className="space-y-3 rounded-xl border p-5">
           <Skeleton className="h-5 w-24" />
           <Skeleton className="h-6 w-3/4" />
@@ -30,10 +29,8 @@ export function TableSkeleton({
         <Skeleton className="h-4 w-1/3" />
       </div>
       {Array.from({ length: rows }, (_, r) => (
-        // biome-ignore lint/suspicious/noArrayIndexKey: static placeholder list
         <div key={r} className="flex gap-4 border-b px-4 py-4 last:border-0">
           {Array.from({ length: columns }, (_, c) => (
-            // biome-ignore lint/suspicious/noArrayIndexKey: static placeholder list
             <Skeleton key={c} className="h-4 flex-1" />
           ))}
         </div>
@@ -42,7 +39,6 @@ export function TableSkeleton({
   );
 }
 
-/** For dashboard loading.tsx files: page title + table. */
 export function DashboardPageSkeleton() {
   return (
     <div className="space-y-6">

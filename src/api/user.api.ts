@@ -27,14 +27,12 @@ export function uploadAvatar({
 }) {
   return new Promise<ApiResponse<AvatarUploadResult>>((resolve, reject) => {
     const formData = new FormData();
-    formData.append("avatar", file); // must match upload.single("avatar") in the backend
+    formData.append("avatar", file);
 
     const xhr = new XMLHttpRequest();
     xhr.open("PATCH", "/api/v1/users/me/avatar");
     xhr.withCredentials = true;
     xhr.responseType = "json";
-    // ⚠️ No Content-Type header: the browser sets "multipart/form-data; boundary=…" itself.
-    //    Setting it by hand drops the boundary and the backend can't parse the file.
 
     xhr.upload.onprogress = (event) => {
       if (event.lengthComputable) {

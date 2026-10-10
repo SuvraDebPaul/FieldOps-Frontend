@@ -1,4 +1,3 @@
-// cspell:ignore ofetch
 import { FetchError, type FetchOptions, ofetch } from "ofetch";
 
 const isServer = typeof window === "undefined";

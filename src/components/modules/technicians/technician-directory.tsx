@@ -23,13 +23,11 @@ const PAGE_SIZE = 9;
 export default function TechnicianDirectory() {
   const { get, setParams } = useQueryParams();
 
-  // 1. URL → filter values
   const searchTerm = get("q");
   const skill = get("skill");
   const available = get("available");
   const page = Math.max(Number(get("page")) || 1, 1);
 
-  // 2. Filter values → API params (undefined keys are left out of the request)
   const params: TechnicianParams = {
     page,
     limit: PAGE_SIZE,
@@ -43,7 +41,6 @@ export default function TechnicianDirectory() {
     useTechnicians(params);
   const { data: skills = [] } = useSkills();
 
-  // Any filter change sends the user back to page 1
   const updateFilters = (updates: Record<string, string | null>) =>
     setParams({ ...updates, page: null });
 

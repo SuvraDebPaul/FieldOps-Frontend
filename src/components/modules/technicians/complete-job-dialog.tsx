@@ -44,8 +44,6 @@ export default function CompleteJobDialog({
         workSummary: value.workSummary.trim(),
         note: value.note.trim() || undefined,
       }),
-    // No onSuccess needed: the optimistic status change unmounts this dialog,
-    // and the hook shows the toast
   });
 
   return (

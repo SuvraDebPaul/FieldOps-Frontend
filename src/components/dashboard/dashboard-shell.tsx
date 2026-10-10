@@ -25,11 +25,9 @@ export default function DashboardShell({
   role,
   children,
 }: DashboardShellProps) {
-  // Zustand: two separate selectors → re-renders only when these change
   const sidebarOpen = useUIStore((s) => s.sidebarOpen);
   const setSidebarOpen = useUIStore((s) => s.setSidebarOpen);
 
-  // Already cached by AuthGuard → no extra network request
   const { data } = useGetMe();
   const user = data?.data;
 
@@ -37,7 +35,7 @@ export default function DashboardShell({
     <SidebarProvider open={sidebarOpen} onOpenChange={setSidebarOpen}>
       <DashboardSidebar role={role} />
 
-      <SidebarInset>
+      <SidebarInset className="min-w-0">
         <header className="sticky top-0 z-30 flex h-16 shrink-0 items-center gap-2 border-b bg-background/80 px-4 backdrop-blur">
           <SidebarTrigger className="-ml-1" aria-label="Toggle sidebar" />
           <Separator orientation="vertical" className="mr-2 h-4" />

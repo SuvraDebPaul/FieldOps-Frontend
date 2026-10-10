@@ -152,7 +152,6 @@ export default function CustomerWorkOrderList() {
         />
       </div>
       {renderResults()}
-      {/* client → client: passing a function is allowed here */}
       <WorkOrderDetailSheet
         renderPanel={(wo) => <CustomerJobPanel workOrder={wo} />}
       />

@@ -19,7 +19,6 @@ import { formatTime } from "@/utils";
 
 export default function TodaySchedule() {
   const now = new Date();
-  // startOfDay/endOfDay give the SAME strings all day → a stable query key
   const { data, isPending } = useWorkOrders({
     from: startOfDay(now).toISOString(),
     to: endOfDay(now).toISOString(),

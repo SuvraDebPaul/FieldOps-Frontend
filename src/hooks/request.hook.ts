@@ -143,7 +143,6 @@ export function useApproveRequest() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: approveRequest,
-    // Toast in the hook: approving flips the status, which unmounts the dialog that called it
     onSuccess: ({ data }) => {
       toast.success(`Approved: work order ${data.code} created`);
       return Promise.all([

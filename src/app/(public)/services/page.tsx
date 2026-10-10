@@ -19,7 +19,6 @@ export default async function ServicesPage() {
     getSkills(),
   ]);
 
-  // Only offer skills that at least one service actually needs
   const skills = allSkills.filter((s) => (s._count?.categories ?? 0) > 0);
 
   return (

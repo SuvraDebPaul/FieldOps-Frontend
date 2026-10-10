@@ -24,7 +24,7 @@ import type { CreateCategoryPayload, ServiceCategory } from "@/types";
 import { type CategoryFormValues, categorySchema } from "@/validation";
 
 interface CategoryFormDialogProps {
-  category?: ServiceCategory; // present → edit
+  category?: ServiceCategory;
   trigger: ReactNode;
 }
 

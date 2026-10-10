@@ -143,7 +143,6 @@ function ApproveForm({ request }: { request: ServiceRequestDetail }) {
         )}
 
         <div className="grid gap-4 sm:grid-cols-2">
-          {/* Field listener: changing the start moves the end, keeping the estimated duration */}
           <form.Field
             name="scheduledStart"
             listeners={{

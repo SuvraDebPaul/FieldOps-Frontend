@@ -10,11 +10,11 @@ import {
 import { cn } from "@/lib/utils";
 
 interface FilterSelectProps {
-  value: string; // "" = no filter
-  onValueChange: (value: string | null) => void; // null = clear
+  value: string;
+  onValueChange: (value: string | null) => void;
   options: { value: string; label: string }[];
   allLabel: string;
-  label: string; // accessible name
+  label: string;
   className?: string;
 }
 

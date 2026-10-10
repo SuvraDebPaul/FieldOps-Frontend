@@ -33,7 +33,7 @@ export default function ProfileForm({ user }: { user: UserDetail }) {
     onSubmit: ({ value, formApi }) => {
       const payload: UpdateProfilePayload = {
         name: value.name.trim(),
-        phone: value.phone.trim() || undefined, // the backend rejects "" (min 6)
+        phone: value.phone.trim() || undefined,
         ...(isCustomer
           ? {
               companyName: value.companyName.trim(),
@@ -45,7 +45,7 @@ export default function ProfileForm({ user }: { user: UserDetail }) {
       updateProfile.mutate(payload, {
         onSuccess: () => {
           toast.success("Profile updated");
-          formApi.reset(value); // the saved values become the new "clean" state
+          formApi.reset(value);
         },
       });
     },
@@ -101,7 +101,6 @@ export default function ProfileForm({ user }: { user: UserDetail }) {
           </div>
         )}
 
-        {/* Only THIS button re-renders when the dirty state changes, not the whole form */}
         <form.Subscribe selector={(state) => state.isDirty}>
           {(isDirty) => (
             <Button

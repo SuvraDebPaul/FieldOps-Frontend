@@ -8,7 +8,6 @@ import type { WorkOrderDetail, WorkOrderStatus } from "@/types";
 import CompleteJobDialog from "./complete-job-dialog";
 import LogPartDialog from "./log-part-dialog";
 
-// The ONE legal next step a technician may take from each status
 const NEXT_STEP: Partial<
   Record<
     WorkOrderStatus,

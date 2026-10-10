@@ -25,13 +25,11 @@ export interface CustomerProfile {
   billingAddr: string;
 }
 
-// GET /admin/users (list)
 export interface UserWithProfile extends User {
   customer: CustomerProfile | null;
   technician: (TechnicianProfile & { skills: TechnicianSkill[] }) | null;
 }
 
-// GET /users/me and GET /admin/users/:id
 export interface UserDetail extends User {
   customer: (CustomerProfile & { sites: Site[] }) | null;
   technician: (TechnicianProfile & { skills: TechnicianSkill[] }) | null;
@@ -48,8 +46,8 @@ export interface UserParams {
 export interface UpdateProfilePayload {
   name?: string;
   phone?: string;
-  companyName?: string; // customers only
-  billingAddr?: string; // customers only
+  companyName?: string;
+  billingAddr?: string;
 }
 
 export interface UpdateUserStatusPayload {

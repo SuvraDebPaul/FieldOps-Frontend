@@ -33,7 +33,6 @@ export default function StepDetails() {
     },
   });
 
-  // Earliest value the datetime picker will accept: now, in the user's local time
   const minDateTime = format(new Date(), "yyyy-MM-dd'T'HH:mm");
 
   return (

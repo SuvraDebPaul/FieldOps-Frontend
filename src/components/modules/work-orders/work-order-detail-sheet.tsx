@@ -19,7 +19,6 @@ import PartsList from "./parts-list";
 import WorkOrderTimeline from "./work-order-timeline";
 
 interface WorkOrderDetailSheetProps {
-  /** Role-specific section: pay + rate (customer), status actions (technician), admin tools… */
   renderPanel?: (workOrder: WorkOrderDetail) => ReactNode;
 }
 

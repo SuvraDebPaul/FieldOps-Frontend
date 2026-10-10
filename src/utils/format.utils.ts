@@ -17,11 +17,11 @@ export function formatDuration(minutes: number) {
 }
 
 export function formatDate(iso: string) {
-  return format(new Date(iso), "d MM yyyy");
+  return format(new Date(iso), "d MMM yyyy");
 }
 
 export function formatDateTime(iso: string) {
-  return format(new Date(iso), "d MM yyyy, h:mm a");
+  return format(new Date(iso), "d MMM yyyy, h:mm a");
 }
 
 export function formatTime(iso: string) {

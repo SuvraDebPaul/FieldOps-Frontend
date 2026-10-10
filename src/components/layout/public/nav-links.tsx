@@ -8,7 +8,7 @@ import { isActivePath } from "@/utils";
 
 interface NavLinksProps {
   className?: string;
-  onNavigate?: () => void; // lets the mobile drawer close itself
+  onNavigate?: () => void;
 }
 
 export default function NavLinks({ className, onNavigate }: NavLinksProps) {

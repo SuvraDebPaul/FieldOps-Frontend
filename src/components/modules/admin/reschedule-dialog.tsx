@@ -64,7 +64,6 @@ function RescheduleForm({
   onDone: () => void;
 }) {
   const reschedule = useRescheduleWorkOrder();
-  // Keep the job's current length when the start moves
   const duration = differenceInMinutes(
     new Date(workOrder.scheduledEnd),
     new Date(workOrder.scheduledStart),

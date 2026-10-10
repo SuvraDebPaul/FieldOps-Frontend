@@ -7,7 +7,7 @@ export function useInitiatePayment() {
     mutationFn: initiatePayment,
     onSuccess: ({ data }) => {
       if (data.checkoutUrl) {
-        window.location.assign(data.checkoutUrl); // full navigation to Stripe's hosted page
+        window.location.assign(data.checkoutUrl);
       } else {
         toast.error("Stripe didn't return a checkout page. Please try again.");
       }
@@ -24,8 +24,6 @@ export function usePaymentStatus(
     queryKey: ["payments", transactionId ?? ""],
     queryFn: transactionId ? () => getPayment(transactionId) : skipToken,
     select: (res) => res.data,
-    // Stripe may redirect the customer back BEFORE its webhook reaches the backend.
-    // While the payment is still INITIATED, ask again every 2 seconds.
     refetchInterval: (query) =>
       poll && query.state.data?.data.status === "INITIATED" ? 2000 : false,
     meta: { errorMessage: "Couldn't check the payment status" },

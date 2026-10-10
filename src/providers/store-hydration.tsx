@@ -9,5 +9,5 @@ export default function StoreHydration() {
     void useRequestWizardStore.persist.rehydrate();
   }, []);
 
-  return null; // renders nothing; only does the loading
+  return null;
 }

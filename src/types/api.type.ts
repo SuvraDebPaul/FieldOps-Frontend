@@ -10,10 +10,9 @@ export interface ApiResponse<T> {
   statusCode: number;
   message: string;
   data: T;
-  meta?: Meta; // your backend only sends meta on list endpoints
+  meta?: Meta;
 }
 
-// Use this for list endpoints so `meta` is guaranteed
 export type PaginatedResponse<T> = ApiResponse<T[]> & { meta: Meta };
 
 export interface ApiErrorResponse {

@@ -37,8 +37,6 @@ export default function RequestWizard() {
   const { get, setParams } = useQueryParams();
   const categoryIdFromUrl = get("categoryId");
 
-  // "Request this service" → pre-select it, then remove it from the URL
-  // so a later refresh doesn't overwrite a different choice.
   useEffect(() => {
     if (!hasHydrated || !categoryIdFromUrl) return;
     useRequestWizardStore
@@ -47,7 +45,6 @@ export default function RequestWizard() {
     setParams({ categoryId: null });
   }, [hasHydrated, categoryIdFromUrl, setParams]);
 
-  // Until sessionStorage has been read, we don't know which step to show
   if (!hasHydrated) return <WizardSkeleton />;
 
   const StepComponent = STEP_COMPONENTS[step];

@@ -6,10 +6,10 @@ export interface TechnicianProfile {
   userId: string;
   employeeCode: string;
   baseCity: string;
-  hourlyRate: string; // Decimal
+  hourlyRate: string;
   maxDailyJobs: number;
   isAvailable: boolean;
-  ratingAvg: string; // Decimal
+  ratingAvg: string;
   ratingCount: number;
 }
 
@@ -20,12 +20,10 @@ export interface TechnicianSkill {
   skill: Skill;
 }
 
-// Used inside work orders, invoices and feedback
 export interface TechnicianWithUser extends TechnicianProfile {
   user: User;
 }
 
-// GET /technicians (public)
 export interface PublicTechnician extends TechnicianProfile {
   user: Pick<User, "id" | "name" | "email" | "phone" | "avatarUrl" | "status">;
   skills: (Omit<TechnicianSkill, "skill"> & {

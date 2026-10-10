@@ -7,7 +7,7 @@ import { useDebouncedCallback } from "@/hooks";
 import { cn } from "@/lib/utils";
 
 interface SearchInputProps {
-  value: string; // the value currently in the URL
+  value: string;
   onSearch: (value: string) => void;
   placeholder?: string;
   delay?: number;
@@ -24,8 +24,6 @@ export default function SearchInput({
   const [text, setText] = useState(urlValue);
   const [syncedValue, setSyncedValue] = useState(urlValue);
 
-  // The URL changed from outside (e.g. "Clear filters") → show it in the box.
-  // This "adjust state during render" pattern is recommended by React over an effect.
   if (urlValue !== syncedValue) {
     setSyncedValue(urlValue);
     if (urlValue !== text.trim()) setText(urlValue);

@@ -13,7 +13,7 @@ import type { MonthlyPoint } from "@/utils";
 
 interface MonthlyBarChartProps {
   data: MonthlyPoint[];
-  valueLabel: string; // e.g. "Labour billed": used by the tooltip and the table
+  valueLabel: string;
   formatValue: (value: number) => string;
 }
 
@@ -69,7 +69,6 @@ export default function MonthlyBarChart({
         </ResponsiveContainer>
       </div>
 
-      {/* Same numbers for screen readers: the chart is never the only way to read the data */}
       <table className="sr-only">
         <caption>{valueLabel} per month</caption>
         <tbody>

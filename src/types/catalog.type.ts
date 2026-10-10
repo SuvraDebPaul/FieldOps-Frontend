@@ -3,7 +3,7 @@ import type { ListParams } from "./api.type";
 export interface Skill {
   id: string;
   name: string;
-  _count?: { technicians: number; categories: number }; // only on GET /skills
+  _count?: { technicians: number; categories: number };
 }
 
 export interface ServiceCategory {
@@ -11,7 +11,7 @@ export interface ServiceCategory {
   name: string;
   description: string | null;
   requiredSkillId: string;
-  baseCharge: string; // Decimal
+  baseCharge: string;
   estimatedMins: number;
   isActive: boolean;
   createdAt: string;

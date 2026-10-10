@@ -15,7 +15,7 @@ export interface RequestDraft {
   title: string;
   description: string;
   priority: Priority;
-  preferredAt: string; // "" or a datetime-local value; turned into ISO on submit
+  preferredAt: string;
 }
 
 const EMPTY_DRAFT: RequestDraft = {
@@ -32,7 +32,7 @@ const LAST_STEP = WIZARD_STEPS.length - 1;
 interface RequestWizardState {
   step: number;
   draft: RequestDraft;
-  hasHydrated: boolean; // true once the saved draft has been loaded
+  hasHydrated: boolean;
 
   updateDraft: (values: Partial<RequestDraft>) => void;
   nextStep: () => void;
@@ -85,10 +85,9 @@ export const useRequestWizardStore = create<RequestWizardState>()(
       }),
       {
         name: "fieldops-request-draft",
-        storage: createJSONStorage(() => sessionStorage), // per tab, cleared when the tab closes
+        storage: createJSONStorage(() => sessionStorage),
         partialize: (state) => ({ step: state.step, draft: state.draft }),
         skipHydration: true,
-        // Runs once the saved draft has been read back → lets the UI know it's safe to render
         onRehydrateStorage: () => (state) => state?.setHasHydrated(true),
       },
     ),

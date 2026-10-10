@@ -28,7 +28,6 @@ export function useCategories(params: CategoryParams) {
   });
 }
 
-/** Categories and skills affect each other (skill usage counts), so refresh both. */
 function useInvalidateCatalog() {
   const queryClient = useQueryClient();
   return () =>

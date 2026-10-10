@@ -11,7 +11,6 @@ import { useUploadAvatar } from "@/hooks";
 import { formatFileSize } from "@/utils";
 
 const ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/webp"];
-// Vercel serverless functions reject request bodies above 4.5 MB, so stay under it
 const MAX_BYTES = 4 * 1024 * 1024;
 
 interface AvatarUploaderProps {
@@ -29,8 +28,6 @@ export default function AvatarUploader({
   const [progress, setProgress] = useState(0);
   const uploadAvatar = useUploadAvatar();
 
-  // A blob: URL keeps the file in memory until revoked. Free the old one whenever
-  // the preview changes, and when the component unmounts.
   useEffect(() => {
     return () => {
       if (previewUrl) URL.revokeObjectURL(previewUrl);
@@ -41,7 +38,7 @@ export default function AvatarUploader({
     setFile(null);
     setPreviewUrl(null);
     setProgress(0);
-    if (inputRef.current) inputRef.current.value = ""; // lets the same file be picked again
+    if (inputRef.current) inputRef.current.value = "";
   };
 
   const handleSelect = (e: ChangeEvent<HTMLInputElement>) => {
@@ -82,7 +79,6 @@ export default function AvatarUploader({
   return (
     <div className="flex flex-col items-center gap-4 text-center">
       {previewUrl ? (
-        // biome-ignore lint/performance/noImgElement: blob: preview URLs can't go through next/image
         <img
           src={previewUrl}
           alt="Preview of your new profile photo"

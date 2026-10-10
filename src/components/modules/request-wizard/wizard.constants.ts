@@ -10,7 +10,6 @@ export const STEP_HINTS = [
   "Check everything, then submit your request.",
 ];
 
-// Which step to send the user back to when a field is invalid
 export const STEP_OF_FIELD: Record<string, number> = {
   siteId: 0,
   categoryId: 1,

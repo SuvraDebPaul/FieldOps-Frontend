@@ -15,7 +15,6 @@ export const completeJobSchema = z.object({
 
 export type CompleteJobValues = z.infer<typeof completeJobSchema>;
 
-// Inputs give strings, so validate the strings and convert on submit
 export const partSchema = z.object({
   name: z.string().trim().min(2, "Part name is required"),
   quantity: z

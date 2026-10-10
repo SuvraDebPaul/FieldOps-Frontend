@@ -19,7 +19,6 @@ import {
   WIZARD_SITE_PARAMS,
 } from "./wizard.constants";
 
-// Draft (form-friendly) → payload (API-friendly)
 function toPayload(draft: RequestDraft): CreateRequestPayload {
   return {
     siteId: draft.siteId,
@@ -27,7 +26,6 @@ function toPayload(draft: RequestDraft): CreateRequestPayload {
     title: draft.title.trim(),
     description: draft.description.trim(),
     priority: draft.priority,
-    // "2026-10-06T14:30" (local) → "2026-10-06T08:30:00.000Z" (what z.iso.datetime expects)
     preferredAt: draft.preferredAt
       ? new Date(draft.preferredAt).toISOString()
       : undefined,
@@ -64,7 +62,6 @@ function ReviewRow({
 
 export default function StepReview() {
   const router = useRouter();
-  // Several values at once → useShallow (Rule 2 from the Zustand lesson)
   const { draft, goToStep, prevStep, reset } = useRequestWizardStore(
     useShallow((s) => ({
       draft: s.draft,
@@ -74,7 +71,6 @@ export default function StepReview() {
     })),
   );
 
-  // Same params as Steps 1 and 2 → read straight from the cache, no new request
   const { data: sitesRes } = useSites(WIZARD_SITE_PARAMS);
   const { data: categoriesRes } = useCategories(WIZARD_CATEGORY_PARAMS);
   const createRequest = useCreateRequest();
@@ -86,7 +82,6 @@ export default function StepReview() {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    // Last safety net: the draft came from storage and could be stale or edited
     const result = createRequestSchema.safeParse(draft);
     if (!result.success) {
       const issue = result.error.issues[0];
@@ -101,7 +96,7 @@ export default function StepReview() {
           description: "A dispatcher will review it and assign a technician.",
         });
         router.push("/dashboard/requests");
-        reset(); // clear the Zustand draft and its sessionStorage copy
+        reset();
       },
     });
   };

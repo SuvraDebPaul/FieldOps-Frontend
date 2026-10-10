@@ -39,7 +39,7 @@ export default function ContactForm() {
         `[FieldOps] ${value.topic}`,
       )}&body=${encodeURIComponent(body)}`;
 
-      window.location.href = mailto; // opens the visitor's email app, pre-filled
+      window.location.href = mailto;
       toast.success("Opening your email app…", {
         description: "Just press send. We'll reply to the address you entered.",
       });

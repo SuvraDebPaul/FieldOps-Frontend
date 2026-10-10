@@ -22,7 +22,7 @@ import type { Site } from "@/types";
 import { type SiteFormValues, siteSchema } from "@/validation";
 
 interface SiteFormDialogProps {
-  site?: Site; // present → edit mode, absent → create mode
+  site?: Site;
   trigger: ReactNode;
 }
 

@@ -14,7 +14,6 @@ export default function NewRequestPage() {
         title="New service request"
         description="Four quick steps. Your progress is saved if you leave or refresh."
       />
-      {/* useSearchParams (via useQueryParams) → Suspense required for the static build */}
       <Suspense fallback={<WizardSkeleton />}>
         <RequestWizard />
       </Suspense>

@@ -7,9 +7,9 @@ import type { PartUsage, WorkOrderBase } from "./work-order.type";
 
 export interface InvoiceBase {
   id: string;
-  invoiceNo: string; // INV-2026-000001
+  invoiceNo: string;
   workOrderId: string;
-  labourHours: string; // Decimal
+  labourHours: string;
   labourAmount: string;
   partsAmount: string;
   vatAmount: string;
@@ -26,13 +26,12 @@ export interface Payment {
   invoiceId: string;
   transactionId: string;
   gatewayRef: string | null;
-  amount: string; // Decimal
+  amount: string;
   status: PaymentStatus;
   createdAt: string;
   updatedAt: string;
 }
 
-// GET /invoices and /invoices/:id
 export interface Invoice extends InvoiceBase {
   workOrder: WorkOrderBase & {
     technician: TechnicianWithUser;
@@ -48,7 +47,6 @@ export interface InvoiceParams extends ListParams {
   to?: string;
 }
 
-// POST /payments/initiate
 export interface InitiatePaymentResponse {
   transactionId: string;
   invoiceNo: string;
@@ -57,7 +55,6 @@ export interface InitiatePaymentResponse {
   checkoutUrl: string | null;
 }
 
-// GET /payments/:transactionId (used on /payment/success)
 export interface PaymentDetail extends Payment {
   invoice: InvoiceBase & {
     workOrder: WorkOrderBase & {

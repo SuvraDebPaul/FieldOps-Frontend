@@ -6,7 +6,6 @@ const phoneRule = z
   .trim()
   .refine((v) => v === "" || v.length >= 6, "Enter a valid phone number");
 
-// Same SHAPE for every role (so one form type works), different RULES per role
 export const profileSchema = z.object({
   name: z.string().trim().min(2, "Name must be at least 2 characters"),
   phone: phoneRule,

@@ -32,7 +32,7 @@ export function ProfileSkeleton() {
 }
 
 export default function ProfileSettings() {
-  const { data, isPending } = useGetMe(); // already cached by AuthGuard → instant
+  const { data, isPending } = useGetMe();
   const user = data?.data;
 
   if (isPending || !user) return <ProfileSkeleton />;

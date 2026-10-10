@@ -18,8 +18,6 @@ export default function PayInvoiceButton({
   ...buttonProps
 }: PayInvoiceButtonProps) {
   const initiatePayment = useInitiatePayment();
-  // Stay disabled after success too: we're leaving for Stripe, and a second
-  // click would create a second Payment row
   const isBusy = initiatePayment.isPending || initiatePayment.isSuccess;
 
   return (

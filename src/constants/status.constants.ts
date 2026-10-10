@@ -25,7 +25,7 @@ export const REQUEST_STATUS_META: Record<RequestStatus, StatusMeta> = {
   APPROVED: { label: "Approved", tone: "info" },
   REJECTED: { label: "Rejected", tone: "danger" },
   CANCELLED: { label: "Cancelled", tone: "neutral" },
-  CONVERTED: { label: "Scheduled", tone: "success" }, // turned into a work order
+  CONVERTED: { label: "Scheduled", tone: "success" },
 };
 
 export const WORK_ORDER_STATUS_META: Record<WorkOrderStatus, StatusMeta> = {

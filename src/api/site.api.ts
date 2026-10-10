@@ -19,7 +19,6 @@ export function createSite(payload: SitePayload) {
   });
 }
 
-// Mutations receive ONE argument, so the id travels inside the object
 export function updateSite({
   siteId,
   ...payload

@@ -14,24 +14,21 @@ import { formatCurrency, formatDuration } from "@/utils";
 
 export const revalidate = 3600;
 
-// 1. Pre-build one page per category at build time
 export async function generateStaticParams() {
   const { data } = await getCategories({ limit: 100 });
   return data.map((category) => ({ id: category.id }));
 }
 
-// 2. Fetch once per request: React's cache() lets generateMetadata and the page share one call
 const loadCategory = cache(async (id: string) => {
   try {
     const { data } = await getCategory(id);
     return data;
   } catch (error) {
     if (error instanceof FetchError && error.status === 404) return null;
-    throw error; // any other failure → error.tsx
+    throw error;
   }
 });
 
-// 3. Per-page SEO
 export async function generateMetadata({
   params,
 }: PageProps<"/services/[id]">): Promise<Metadata> {

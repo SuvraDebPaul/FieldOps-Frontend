@@ -70,7 +70,6 @@ export default function RequestList({
         </div>
       ),
     },
-    // Only admins need to know WHICH customer
     ...(isAdmin
       ? [
           {

@@ -12,7 +12,6 @@ type TimelineProps = {
 };
 
 export default function WorkOrderTimeline({ workOrder }: TimelineProps) {
-  // When was each status FIRST reached? (history is oldest → newest)
   const reachedAt = new Map<WorkOrderStatus, string>();
   for (const entry of workOrder.history) {
     if (!reachedAt.has(entry.toStatus))

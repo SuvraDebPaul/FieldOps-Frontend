@@ -10,7 +10,7 @@ import TechnicianCard from "@/components/modules/technicians/technician-card";
 import SectionHeading from "@/components/shared/section-heading";
 import { Button } from "@/components/ui/button";
 
-export const revalidate = 3600; // ISR: rebuild at most once an hour
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: { absolute: "FieldOps: Field Service Management" },
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 export default async function HomePage() {
   const [categories, technicians, skills] = await Promise.all([
     getCategories({ limit: 6 }),
-    getTechnicians({ limit: 3 }), // backend already sorts by rating
+    getTechnicians({ limit: 3 }),
     getSkills(),
   ]);
 

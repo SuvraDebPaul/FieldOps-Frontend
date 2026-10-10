@@ -30,7 +30,6 @@ export default function CancelJobDialog({
   const form = useForm({
     defaultValues,
     validators: { onChange: cancelJobSchema },
-    // Optimistic: the status flips to CANCELLED and this dialog unmounts; the hook toasts
     onSubmit: ({ value }) =>
       changeStatus.mutate({
         workOrderId: workOrder.id,

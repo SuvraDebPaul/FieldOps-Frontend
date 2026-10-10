@@ -21,7 +21,6 @@ export default function Logo({
       <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">
         <Wrench className="size-4" />
       </span>
-      {/* Hidden when the dashboard sidebar collapses to icons */}
       <span className="group-data-[collapsible=icon]:hidden">
         Field<span className="text-primary">Ops</span>
       </span>

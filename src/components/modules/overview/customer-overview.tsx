@@ -21,7 +21,6 @@ import { useGetMe, useRequestStatusCounts, useRequests } from "@/hooks";
 import type { RequestStatus } from "@/types";
 import { formatDate } from "@/utils";
 
-// Defined outside the component → the same array every render → stable query keys
 const COUNTED_STATUSES: RequestStatus[] = ["PENDING", "CONVERTED", "REJECTED"];
 
 export default function CustomerOverview() {

@@ -1,4 +1,3 @@
-// src/hooks/index.ts
 export * from "./auth.hook";
 export * from "./catalog.hook";
 export * from "./technician.hook";

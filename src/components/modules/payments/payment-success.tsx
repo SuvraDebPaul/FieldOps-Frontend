@@ -103,7 +103,6 @@ export default function PaymentSuccess() {
     );
   }
 
-  // FAILED or CANCELLED
   return (
     <PaymentResultCard
       icon={XCircle}

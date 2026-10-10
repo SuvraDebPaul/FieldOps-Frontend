@@ -56,7 +56,6 @@ export function useWorkOrder(workOrderId: string | null) {
   });
 }
 
-/** null = no feedback yet. The backend answers 404 for that, which is NOT an error for us. */
 export function useWorkOrderFeedback(workOrderId: string | null) {
   return useQuery({
     queryKey: WORK_ORDER_KEYS.feedback(workOrderId ?? ""),
@@ -80,7 +79,6 @@ export function useSubmitFeedback() {
   return useMutation({
     mutationFn: submitFeedback,
     onSuccess: (_res, { workOrderId }) => {
-      // In the hook: the form unmounts as soon as the feedback appears (same lesson as cancel)
       toast.success("Thanks for rating this job!");
       return queryClient.invalidateQueries({
         queryKey: WORK_ORDER_KEYS.feedback(workOrderId),

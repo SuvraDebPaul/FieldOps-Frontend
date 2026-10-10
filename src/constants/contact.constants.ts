@@ -1,4 +1,4 @@
-export const SUPPORT_EMAIL = "infoxfieldops.com"; // ← replace with your own
+export const SUPPORT_EMAIL = "info@fieldops.com";
 
 export const CONTACT_TOPICS = [
   { value: "New service enquiry", label: "New service enquiry" },

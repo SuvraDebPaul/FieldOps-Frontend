@@ -28,7 +28,6 @@ export default function AdminRequestActions({
   const deleteRequest = useDeleteRequest();
 
   const isPending = request.status === "PENDING";
-  // The backend refuses to delete a converted request, because it owns a work order
   const canDelete = request.status !== "CONVERTED";
 
   if (!isPending && !canDelete) return null;
@@ -64,7 +63,7 @@ export default function AdminRequestActions({
               <AlertDialogAction
                 variant="destructive"
                 onClick={() => {
-                  setParams({ view: null }); // close the sheet first: its record is about to vanish
+                  setParams({ view: null });
                   deleteRequest.mutate(request.id);
                 }}
               >

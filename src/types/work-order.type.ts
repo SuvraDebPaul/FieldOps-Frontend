@@ -6,7 +6,7 @@ import type { TechnicianWithUser } from "./technician.type";
 
 export interface WorkOrderBase {
   id: string;
-  code: string; // WO-2026-000001
+  code: string;
   requestId: string;
   technicianId: string;
   scheduledStart: string;
@@ -28,7 +28,7 @@ export interface PartUsage {
   workOrderId: string;
   name: string;
   quantity: number;
-  unitPrice: string; // Decimal
+  unitPrice: string;
   createdAt: string;
 }
 
@@ -37,12 +37,11 @@ export interface WorkOrderHistory {
   workOrderId: string;
   fromStatus: WorkOrderStatus | null;
   toStatus: WorkOrderStatus;
-  changedById: string; // "STRIPE_WEBHOOK" when paid
+  changedById: string;
   note: string | null;
   createdAt: string;
 }
 
-// GET /work-orders and /work-orders/my-assigned
 export interface WorkOrder extends WorkOrderBase {
   technician: TechnicianWithUser;
   request: RequestWithRelations;
@@ -50,7 +49,6 @@ export interface WorkOrder extends WorkOrderBase {
   invoice: InvoiceBase | null;
 }
 
-// GET /work-orders/:id
 export interface WorkOrderDetail extends WorkOrder {
   history: WorkOrderHistory[];
 }
@@ -58,7 +56,7 @@ export interface WorkOrderDetail extends WorkOrder {
 export interface WorkOrderParams extends ListParams {
   status?: WorkOrderStatus;
   technicianId?: string;
-  from?: string; // ISO date
+  from?: string;
   to?: string;
 }
 
@@ -67,7 +65,7 @@ export interface ChangeStatusPayload {
   note?: string;
   diagnosis?: string;
   workSummary?: string;
-  cancelReason?: string; // required when status is CANCELLED
+  cancelReason?: string;
 }
 
 export interface ReschedulePayload {

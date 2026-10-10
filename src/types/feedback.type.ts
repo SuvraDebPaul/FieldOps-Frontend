@@ -6,12 +6,11 @@ import type { WorkOrderBase } from "./work-order.type";
 export interface FeedbackBase {
   id: string;
   workOrderId: string;
-  rating: number; // 1–5
+  rating: number;
   comment: string | null;
   createdAt: string;
 }
 
-// GET /feedbacks
 export interface Feedback extends FeedbackBase {
   workOrder: WorkOrderBase & {
     technician: TechnicianWithUser;

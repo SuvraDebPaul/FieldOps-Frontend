@@ -8,7 +8,7 @@ import type { WorkOrderBase } from "./work-order.type";
 
 export interface ServiceRequestBase {
   id: string;
-  code: string; // SR-2026-000001
+  code: string;
   customerId: string;
   siteId: string;
   categoryId: string;
@@ -24,19 +24,16 @@ export interface ServiceRequestBase {
   deletedAt: string | null;
 }
 
-// The shape nested inside work orders, invoices and feedback
 export interface RequestWithRelations extends ServiceRequestBase {
   site: Site;
   category: ServiceCategoryBase;
   customer: CustomerProfile & { user: User };
 }
 
-// GET /requests (list)
 export interface ServiceRequest extends RequestWithRelations {
   workOrder: Pick<WorkOrderBase, "id" | "code" | "status"> | null;
 }
 
-// GET /requests/:id
 export interface ServiceRequestDetail extends RequestWithRelations {
   workOrder: (WorkOrderBase & { technician: TechnicianWithUser }) | null;
 }
@@ -54,15 +51,15 @@ export interface CreateRequestPayload {
   title: string;
   description: string;
   priority?: Priority;
-  preferredAt?: string; // ISO datetime
+  preferredAt?: string;
 }
 
 export type UpdateRequestPayload = Partial<CreateRequestPayload>;
 
 export interface ApproveRequestPayload {
   technicianId: string;
-  scheduledStart: string; // ISO
-  scheduledEnd: string; // ISO
+  scheduledStart: string;
+  scheduledEnd: string;
 }
 
 export interface RejectRequestPayload {

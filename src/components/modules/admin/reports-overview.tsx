@@ -78,13 +78,13 @@ export default function ReportsOverview() {
   const rating = Number(get("rating"));
   const page = Math.max(Number(get("page")) || 1, 1);
 
-  const all = useFeedbacks({ limit: 100 }); // for the distribution and averages
+  const all = useFeedbacks({ limit: 100 });
   const list = useFeedbacks({
     page,
     limit: 10,
     rating: RATINGS.includes(rating) ? rating : undefined,
   });
-  const leaders = useTechnicians({ limit: 5 }); // the backend sorts by rating, highest first
+  const leaders = useTechnicians({ limit: 5 });
 
   const reviews = all.data?.data ?? [];
   const average = reviews.length

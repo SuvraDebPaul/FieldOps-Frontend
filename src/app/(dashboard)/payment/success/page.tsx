@@ -5,7 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export const metadata: Metadata = {
   title: "Payment status",
-  robots: { index: false }, // a private, per-transaction page: keep it out of search engines
+  robots: { index: false },
 };
 
 export default function PaymentSuccessPage() {

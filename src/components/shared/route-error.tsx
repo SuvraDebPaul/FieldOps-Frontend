@@ -16,7 +16,7 @@ export default function RouteError({
   homeHref = "/",
 }: RouteErrorProps & { homeHref?: string }) {
   useEffect(() => {
-    console.error(error); // where a monitoring service (e.g. Sentry) would hook in
+    console.error(error);
   }, [error]);
 
   return (

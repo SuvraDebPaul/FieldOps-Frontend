@@ -44,7 +44,8 @@ export default function TechnicianCard({
           </span>
           {hasReviews && (
             <span className="text-muted-foreground">
-              ({technician.ratingCount} reviews)
+              ({technician.ratingCount}{" "}
+              {technician.ratingCount === 1 ? "review" : "reviews"})
             </span>
           )}
         </div>
